@@ -38,8 +38,12 @@ function App() {
     about: '',
     experience: '',
     companies: [{ companyName: '', startDate: '', endDate: '' }],
-    Experiences: {science: '', software: '', Engineering: ''},
-    endDate:'',
+    Experiences: {
+      science: [], // Initialize as an empty array
+      software: [],
+      Engineering: []
+    },
+    
     enrollDate:'',
     gradution:'',
     education: [],
@@ -51,7 +55,7 @@ function App() {
   //FOrm Validation Function----------------------------------------------------------------
   const validateForm = (data) => {
     const errors = {};
-  
+    
     if (!data.email) {
       errors.email = 'Email Required'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
@@ -64,6 +68,24 @@ function App() {
       errors.phone = 'Invalid phone number (10 digits required)';
     }
 
+    
+  
+    data.companies.forEach((company, index) => {
+      if (company.startDate && company.endDate && company.startDate > company.endDate) {
+        errors[`companies[${index}].startDate`] = 'Start date should be less than End date';
+      }
+    });
+
+    data.education.forEach((education, index) => {
+      if (education.enrollDate && education.graduation && education.enrollDate > education.graduation) {
+        errors[`education[${index}].enrollDate`] = 'enrollDate date should be less than gradution date';
+      }
+    });
+  
+    // Additional validation for enrollDate and gradution
+    if (data.enrollDate && data.graduation && data.enrollDate > data.graduation) {
+      errors.enrollDate = 'enrollDate date should be less than gradution date';
+    }
    
   
     
@@ -95,21 +117,19 @@ function App() {
     
     if (name === 'companyName' || name === 'startDate' || name === 'endDate') {
       setFormData((prevData) => {
-            // Create a copy of the companies array from the previous state
-          const newCompanies = [...prevData.companies];
-    
-          // Access the specific company object being updated
-          const updatedCompany = newCompanies[index];
-    
-            // Update the specific property (companyName, startDate, or endDate) of the company object
-            updatedCompany[name] = value;
-    
-            // Replace the updated company object in the copied array
-            newCompanies[index] = updatedCompany;
-    
-            // Return the updated form data object with the new companies array
-            return { ...prevData, companies: newCompanies };
-
+        const newCompanies = [...prevData.companies];
+        const updatedCompany = newCompanies[index];
+  
+        if (name === 'startDate') {
+          updatedCompany.startDate = value;
+        } else if (name === 'endDate') {
+          updatedCompany.endDate = value;
+        } else {
+          updatedCompany[name] = value;
+        }
+  
+        newCompanies[index] = updatedCompany;
+        return { ...prevData, companies: newCompanies };
       });
     }
    
@@ -140,15 +160,17 @@ function App() {
     if (name === 'science' || name === 'software' || name === 'Engineering') {
       setFormData((prevData) => ({
         ...prevData,
-      Experiences: {
-        ...prevData.Experiences,
-        [name]: value // Assign the selected skill directly
-      }
-        
+        Experiences: {
+          ...prevData.Experiences,
+          [name]: typeof value === 'string' ? value.split(',').map(item => item.trim()) : value
+        }
+      
       }));
-       console.log(formData.Experiences);
-    
+      console.log(formData.Experiences);
     }
+       
+    
+    
     
    
     else {

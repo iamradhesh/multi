@@ -97,6 +97,7 @@ const Profile = ({ handleSubmit, formData, handleInputChange, startDateProp, end
     </label>
     <input
       type="text"
+      className="mt-1 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       id={`education-${index}`}
       name={`education-${index}`}
       value={education.education}
@@ -110,6 +111,7 @@ const Profile = ({ handleSubmit, formData, handleInputChange, startDateProp, end
           Enrolled Date
         </label>
         <input
+        className="mt-1 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           type="date"
           id={`enrollDate-${index}`}
           value={education.enrollDate}
@@ -122,6 +124,7 @@ const Profile = ({ handleSubmit, formData, handleInputChange, startDateProp, end
           Graduation Date
         </label>
         <input
+        className="mt-1 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           type="date"
           id={`graduation-${index}`}
           value={education.graduation}

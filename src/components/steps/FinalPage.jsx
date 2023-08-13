@@ -50,14 +50,17 @@ const FinalPage = ({ formData }) => {
       </section>
 
       {/* Experiences */}
-      <section>
-        <h2 className="text-xl font-semibold mb-2">Experiences</h2>
-        <div>
-          <p><strong>Science:</strong> {formData.Experiences.science.join(', ')}</p>
-          <p><strong>Engineering:</strong> {formData.Experiences.Engineering.join(', ')}</p>
-          <p><strong>Software:</strong> {formData.Experiences.software.join(', ')}</p>
-        </div>
-      </section>
+     
+        <section>
+        
+      <h2 className="text-xl font-semibold mb-2">Experiences</h2>
+      <div>
+      <p><strong>Science:</strong> {formData.Experiences.science.join(', ')}</p>
+      <p><strong>Engineering:</strong> {formData.Experiences.Engineering.join(', ')}</p>
+      <p><strong>Software:</strong> {formData.Experiences.software.join(', ')}</p>
+      </div>
+    </section>
+     
 
       {/*About me & ABout Experience */}
       <div className="grid grid-cols-2 gap-8">
