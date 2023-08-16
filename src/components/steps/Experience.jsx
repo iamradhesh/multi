@@ -3,7 +3,7 @@ import Software from './pages/software'; // Update the component file paths
 import Science from './pages/science'; // Update the component file paths
 import Engineering from './pages/Engineering'; // Update the component file paths
 
-function Experience({ handleInputChange }) {
+function Experience({ handleInputChange,formData }) {
   const [activeTab, setActiveTab] = useState("Computer Software");
 
   const handleTab = (tab) => {
@@ -21,7 +21,7 @@ function Experience({ handleInputChange }) {
         </ul>
 
         <div className="outlet p-4">
-          {activeTab === "Computer Software" ? <Software handleInputChange={handleInputChange} activeTab={activeTab} /> : activeTab === "Computer Science" ? <Science handleInputChange={handleInputChange} activeTab={activeTab} /> : <Engineering handleInputChange={handleInputChange} activeTab={activeTab} />}
+          {activeTab === "Computer Software" ? <Software handleInputChange={handleInputChange} activeTab={activeTab} formData={formData} /> : activeTab === "Computer Science" ? <Science handleInputChange={handleInputChange} activeTab={activeTab} formData={formData} /> : <Engineering handleInputChange={handleInputChange} activeTab={activeTab} formData={formData} />}
         </div>
       </div>
     </div>

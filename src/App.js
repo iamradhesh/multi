@@ -1,3 +1,4 @@
+// Importing necessary components and styles
 import './App.css';
 import Personal from './components/steps/Personal';
 import { stepperContext } from './components/contexts/stepperContext';
@@ -9,14 +10,16 @@ import FinalPage from './components/steps/FinalPage';
 import { useState } from 'react';
 
 function App() {
-  const [currentStep,setCurrentStep]=useState(1);
-  const [userData,setUserData]=useState('');
-  const [finalData,setFinalData]=useState([]);
-  const [stepData, setStepData] = useState({});
+   // State variables for managing steps, user data, final data, and step data
+   const [currentStep, setCurrentStep] = useState(1);
+   const [userData, setUserData] = useState('');
+   const [finalData, setFinalData] = useState([]);
+   const [stepData, setStepData] = useState({});
   
  
   
-  const steps=[
+  // Array of steps for the stepper
+  const steps = [
     "Personal",
     "Profile",
     "Experience",
@@ -24,6 +27,8 @@ function App() {
   ];
 
   ///Form Fields----------------------------------------------------------------
+  // Form fields state to store user input data
+ 
   const [formData, setFormData] = useState({
     firstName: '',
    
@@ -53,6 +58,9 @@ function App() {
   });
 
   //FOrm Validation Function----------------------------------------------------------------
+
+  // Function to validate form data
+  
   const validateForm = (data) => {
     const errors = {};
     
@@ -68,8 +76,6 @@ function App() {
       errors.phone = 'Invalid phone number (10 digits required)';
     }
 
-    
-  
     data.companies.forEach((company, index) => {
       if (company.startDate && company.endDate && company.startDate > company.endDate) {
         errors[`companies[${index}].startDate`] = 'Start date should be less than End date';
@@ -95,6 +101,8 @@ function App() {
   };
 
   //Handling Graduation Date field seperatly----------------------------------------------------------------
+  
+  // Handler for changing graduation date
   const handlegradDate = (name, value) => {
 
     setFormData((prevData) => ({
@@ -103,8 +111,9 @@ function App() {
       gradDate: name === 'gradDate'? value : prevData.gradDate,
     }));
   };
-
+// Handler for changing education date
   const handleEducationDateChange = (index, fieldName, dateValue) => {
+    // ...update education date and related state
     setFormData((prevData) => {
       const newEducation = [...prevData.education];
       newEducation[index][fieldName] = dateValue;
@@ -113,8 +122,9 @@ function App() {
   };
   
   //Handling input Change for All other Field----------------------------------------------------------------
+  // Handler for changing input fields
   const handleInputChange = (name, value, startDate, endDate, index) => {
-    
+    // ...update form data based on input changes
     if (name === 'companyName' || name === 'startDate' || name === 'endDate') {
       setFormData((prevData) => {
         const newCompanies = [...prevData.companies];
@@ -133,12 +143,7 @@ function App() {
       });
     }
    
-   
-   
-    
-    
-    
-    if (
+   if (
       name === 'profession' ||
       name === 'selection' ||
       name === 'yes' ||
@@ -169,10 +174,6 @@ function App() {
       console.log(formData.Experiences);
     }
        
-    
-    
-    
-   
     else {
       // For other input types, update formData with the event target's value
       setFormData((prevData) => ({
@@ -195,12 +196,22 @@ function App() {
   };
 
   ///Displaying Components By the help of Stepper---------------------------------------------------------------------
+  // Function to render different components based on the current step
   const displaySteps=(step)=>{
     switch(step){
       case 1:
-        return <Personal  handleSubmit={handleSubmit} formData={formData} handleInputChange={handleInputChange} startDate={formData.date} stepData={stepData} handlegradDate={handlegradDate}/>
+        return <Personal  
+        handleSubmit={handleSubmit} 
+        formData={formData} 
+        handleInputChange={handleInputChange} 
+        startDate={formData.date} 
+        stepData={stepData} 
+        handlegradDate={handlegradDate}/>
       case 2:
-        return <Profile  handleSubmit={handleSubmit} formData={formData} handleInputChange={handleInputChange} 
+        return <Profile  
+        handleSubmit={handleSubmit} 
+        formData={formData} 
+        handleInputChange={handleInputChange} 
         startDateProp={formData.fromDate} 
         endDateProp={formData.endDate} 
         enrollDateProp={formData.enrollDate}
